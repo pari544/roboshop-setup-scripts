@@ -1,4 +1,4 @@
 cart:
-    bash components/cart.sh
+	bash cart.sh
 catalogue:
-    bash components/catalogue.sh
+	bash catalogue.sh

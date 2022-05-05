@@ -21,8 +21,7 @@ Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" &>/dev/null
 
 sleep 10
 
-INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${INSTANCE_NAME} Name=state,Values=active --output table | grep InstanceId | awk
-'{print $4}')
+INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${INSTANCE_NAME} Name=state,Values=active --output table | grep InstanceId | awk  '{print $4}')
 
 IPADDRESS=$(aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --output table | grep PrivateIpAddress | head -n 1 | awk '{print $4}')
 

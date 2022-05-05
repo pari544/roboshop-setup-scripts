@@ -23,9 +23,9 @@ echo "EC2 Instancec created"
 sleep 10
 
 INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${INSTANCE_NAME} Name=state,Values=active --output table | grep InstanceId | awk  '{print $4}')
-
+echo "Instance id is ${INSTANCE_ID}"
 IPADDRESS=$(aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --output table | grep PrivateIpAddress | head -n 1 | awk '{print $4}')
-
+echo "IP Address is ${IPADDRESS}"
 sed -e "s/COMPONENT/${INSTANCE_NAME}/" -e "s/IPADDRESS/${IPADDRESS}/" record.json >/tmp/record.json
 aws route53 change-resource-record-sets --hosted-zone-id Z10056041904PV3USAS19 --change-batch file:///tmp/record.json &>/dev/null
 

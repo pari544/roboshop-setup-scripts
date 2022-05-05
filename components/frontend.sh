@@ -4,7 +4,7 @@ source components/common.sh
 checkRootUser
 
 echo "Installing Nginx"
-yum install nginx -y >/tmp/roboshop.log
+yum install nginx -y > /tmp/roboshop.log
 statusCheck $?
 
 echo "Downloading the Nginx"

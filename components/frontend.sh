@@ -23,9 +23,7 @@ ECHO "Downloading the Nginx"
  statusCheck $?
 
  ECHO "Copying the extracted content"
- mv frontend-main/* .
- mv static/* .
- rm -rf frontend-main README.md &>>${LOG_FILE}
+ mv frontend-main/* . &>>${LOG_FILE} && mv static/* . &>>${LOG_FILE} && rm -rf frontend-main README.md &>>${LOG_FILE}
  statusCheck $?
 
  ECHO "Copying the Roboshop nginx config"

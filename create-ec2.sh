@@ -18,10 +18,11 @@ AMI_ID=$(aws ec2 describe-images  --filters "Name=name,Values=Centos-7-DevOps-Pr
 aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,
 InstanceInterruptionBehavior=stop}" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" "ResourceType=instance,
 Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" &>/dev/null
-echo "EC2 Instancec created"
+echo "EC2 Instance created"
 
 sleep 10
 
+echo "Instance name is ${INSTANCE_NAME}"
 INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${INSTANCE_NAME} Name=state,Values=active --output table | grep InstanceId | awk  '{print $4}')
 echo "Instance id is ${INSTANCE_ID}"
 IPADDRESS=$(aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --output table | grep PrivateIpAddress | head -n 1 | awk '{print $4}')

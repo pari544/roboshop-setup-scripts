@@ -6,8 +6,8 @@ if [ -z $1 ]; then
 fi
 
 if [ "$1" == "list" ]; then
-  aws ec2 describe-instances --query "Reservations[*].Instances[*].{PrivateIp:PrivateIpAddress,PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].value,
-  Status:State.Name}" --output table
+  aws ec2 describe-instances --query "Reservations[*].Instances[*].{PrivateIp:PrivateIpAddress,PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,
+  Status:State.Name}"  --output table
   exit 0
 fi
 

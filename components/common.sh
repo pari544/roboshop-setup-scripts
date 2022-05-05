@@ -15,3 +15,6 @@ statusCheck() {
      exit 1
   fi
 }
+
+LOG_FILE=/tmp/roboshop.log
+rm -f $LOG_FILE

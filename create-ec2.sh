@@ -7,7 +7,7 @@ fi
 
 INSTANCE-NAME = $1
 
-aws ec2 describe-spot-instance-requests --filters Name=tag.Name,Values=${INSTANCE-NAME} Name=State,Values=active --output table | grep InstanceId &>/dev/null
+aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${INSTANCE-NAME} Name=State,Values=active --output table | grep InstanceId &>/dev/null
 
 if [ $? -eq 0 ]; then
   echo "Instance already exists"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z $1]; then
+if [ -z $1 ]; then
   echo "Instance name as the first argument is needed"
   exit 1
 fi
@@ -9,7 +9,7 @@ INSTANCE-NAME = $1
 
 aws ec2 describe-spot-instance-requests --filters Name=tag.Name,Values=${INSTANCE-NAME} Name=State,Values=active --output table | grep InstanceId &>/dev/null
 
-if [ $? -eq 0]; then
+if [ $? -eq 0 ]; then
   echo "Instance already exists"
   exit 0
 fi

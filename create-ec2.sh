@@ -18,6 +18,7 @@ AMI_ID=$(aws ec2 describe-images  --filters "Name=name,Values=Centos-7-DevOps-Pr
 aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,
 InstanceInterruptionBehavior=stop}" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" "ResourceType=instance,
 Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" &>/dev/null
+echo "EC2 Instancec created"
 
 sleep 10
 
@@ -26,6 +27,6 @@ INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Va
 IPADDRESS=$(aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --output table | grep PrivateIpAddress | head -n 1 | awk '{print $4}')
 
 sed -e "s/COMPONENT/${INSTANCE_NAME}/" -e "s/IPADDRESS/${IPADDRESS}/" record.json >/tmp/record.json
-aws route53 change-resource-record-sets --hosted-zone-id Z10124301UJ6NN38EWFHH --change-batch file:///tmp/record.json &>/dev/null
+aws route53 change-resource-record-sets --hosted-zone-id Z10056041904PV3USAS19 --change-batch file:///tmp/record.json &>/dev/null
 
 echo "DNS record created"

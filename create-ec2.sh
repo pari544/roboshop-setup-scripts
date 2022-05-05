@@ -20,9 +20,8 @@ InstanceInterruptionBehavior=stop}" --tag-specifications "ResourceType=spot-inst
 Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" &>/dev/null
 echo "EC2 Instance created"
 
-sleep 10
+sleep 20
 
-echo "Instance name is ${INSTANCE_NAME}"
 INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${INSTANCE_NAME} Name=state,Values=active --output table | grep InstanceId | awk  '{print $4}')
 echo "Instance id is ${INSTANCE_ID}"
 IPADDRESS=$(aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --output table | grep PrivateIpAddress | head -n 1 | awk '{print $4}')

@@ -31,7 +31,7 @@ ECHO "Downloading the Nginx"
  statusCheck $?
 
  ECHO "Update the Nginx Configuration"
- sed -i -e '/catalogue/ s/localhost/catalogue.roboshop.internal' /etc/nginx/default.d/roboshop.conf
+ sed -i -e "/catalogue/ s/localhost/catalogue.roboshop.interna" /etc/nginx/default.d/roboshop.conf
  statusCheck $?
 
  ECHO "Start Nginx Service"

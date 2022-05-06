@@ -20,7 +20,7 @@ id roboshop &>>${LOG_FILE}
 fi
 
 ECHO "Download Application Content"
-curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>.${LOG_FILE}
+curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>>${LOG_FILE}
 statusCheck $?
 
 ECHO "Extract Application Archive"

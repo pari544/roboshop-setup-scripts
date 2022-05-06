@@ -32,7 +32,7 @@ cd /home/roboshop/catalogue && npm install &>>${LOG_FILE} && chown roboshop:robo
 statusCheck $?
 
 ECHO "Update SystemD Configuration files"
-sed -i -e '/s/MONGOD_DNSNAME/mongod.roboshop.internal/' /home/roboshop/catalogue/systemd.service
+sed -i -e '/s/MONGO_DNSNAME/mongod.roboshop.internal/' /home/roboshop/catalogue/systemd.service
 statusCheck $?
 
 ECHO "Setup systemd service"

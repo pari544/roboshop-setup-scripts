@@ -31,6 +31,14 @@ ECHO "Install NodeJS modules"
 cd /home/roboshop/catalogue && npm install &>>${LOG_FILE} && chown roboshop:roboshop  /home/roboshop/catalogue -R
 statusCheck $?
 
+ECHO "Update SystemD Configuration files"
+sed -i -e '/s/MONGOD_DNSNAME/mongod.roboshop.internal/' /home/roboshop/catalogue/systemd.service
+statusCheck $?
+
+ECHO "Setup systemd service"
+mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
+systemctl daemon-reload &>>${LOG_FILE} && systemctl enable catalogue &>>${LOG_FILE} && systemctl restart catalogue &>>${LOG_FILE}
+statusCheck $?
 
 
 

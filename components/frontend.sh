@@ -30,6 +30,10 @@ ECHO "Downloading the Nginx"
  mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>${LOG_FILE}
  statusCheck $?
 
+ ECHO "Update the Nginx Configuration"
+ sed -i -e '/catalogue/ s/localhost/catalogue.roboshop.internal' /etc/nginx/default.d/roboshop.conf
+ statusCheck $?
+
  ECHO "Start Nginx Service"
  systemctl enable nginx &>>${LOG_FILE}
  systemctl restart nginx

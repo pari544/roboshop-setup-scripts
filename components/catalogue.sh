@@ -4,14 +4,6 @@ source components/common.sh
 checkRootUser
 
 
-
-
-
-# mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
-# systemctl daemon-reload
-# systemctl start catalogue
-# systemctl enable catalogue
-
 ECHO "Configure the NodeJS Yum Repos"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG_FILE}
 statusCheck $?
@@ -26,4 +18,19 @@ id roboshop &>>${LOG_FILE}
   useradd roboshop
   statusCheck $?
 fi
+
+ECHO "Download Application Content"
+curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>.${LOG_FILE}
+statusCheck $?
+
+ECHO "Extract Application Archive"
+cd /home/roboshop && rm -rf catalogue &>>${LOG_FILE} && unzip /tmp/catalogue.zip &>>${LOG_FILE} && mv catalogue-main catalogue
+statusCheck $?
+
+ECHO "Install NodeJS modules"
+cd /home/roboshop/catalogue && npm install &>>${LOG_FILE}
+statusCheck $?
+
+
+
 

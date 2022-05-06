@@ -20,7 +20,10 @@ ECHO "Install the NodeJS"
 yum install nodejs gcc-c++ -y &>>${LOG_FILE}
 statusCheck $?
 
-ECHO "Add Application User"
-useradd roboshop
-statusCheck $?
+id roboshop &>>${LOG_FILE}
+  if [ $? -ne 0 ]; then
+  ECHO "Add Application User"
+  useradd roboshop
+  statusCheck $?
+fi
 

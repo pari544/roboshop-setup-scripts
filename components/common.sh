@@ -46,7 +46,7 @@ NODEJS() {
   statusCheck $?
 
   ECHO "Extract Application Archive"
-  cd /home/roboshop && rm -rf ${COMPONENT} &>>${LOG_FILE} && unzip /tmp/${COMPONENT}.zip &>>${LOG_FILE} && mv ${COMPONENT}-main ${COMPONENT}
+  cd /home/roboshop && rm -rf ${COMPONENT} &>>${LOG_FILE} && unzip -o /tmp/${COMPONENT}.zip &>>${LOG_FILE} && mv ${COMPONENT}-main ${COMPONENT}
   statusCheck $?
 
   ECHO "Install NodeJS modules"

@@ -19,7 +19,7 @@ DEFAULT_PASSWORD=$(grep 'A Temporary Password' /var/log/mysqld.log | awk '${prin
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" >/tmp/root-pass.sql
 
 ECHO "Reset MySQL Password"
-mysql --connect-expired-passwrod -u root -p${DEFAULT_PASSWORD} >/tmp/root-pass.sql &>>${LOG_FILE}
+mysql --connect-expired-passwrod -u root -p${DEFAULT_PASSWORD} </tmp/root-pass.sql &>>${LOG_FILE}
 statusCheck $?
 
 #mysql_secure_installation

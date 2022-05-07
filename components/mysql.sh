@@ -3,22 +3,32 @@
 source components/common.sh
 checkRootUser
 
-ECHO "Setup the MySQL Yum repo"
+
+# mysql -uroot -pRoboShop@1
+#uninstall plugin validate_password;
+# curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
+
+# cd /tmp
+# unzip mysql.zip
+# cd mysql-main
+# mysql -u root -pRoboShop@1 <shipping.sql
+
+ECHO "Setup MySQL Yum repo"
 curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo &>>${LOG_FILE}
 statusCheck $?
 
-ECHO "Install the MySQL Server"
+ECHO "Install MySQL Server"
 yum install mysql-community-server -y &>>${LOG_FILE}
 statusCheck $?
 
 ECHO "Start MySQL Service"
-systemctl enable mysqld &>>${LOG_FILE} && systemctl start mysqld &>>${LOG_FILE}
+systemctl enable mysqld  &>>${LOG_FILE} && systemctl start mysqld  &>>${LOG_FILE}
 statusCheck $?
 
-DEFAULT_PASSWORD=$(grep 'A Temporary Password' /var/log/mysqld.log | awk '{print $NF}')
-echo "ALTER USER "root"@"localhost" IDENTIFIED BY 'RoboShop@1';" >/tmp/root-pass.sql
+DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}')
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" >/tmp/root-pass.sql
 
-echo show databases | mysql -uroot -pRoboShop@1 &>>${LOG_FILE}
+echo show databases | mysql -uroot -pRoboShop@1 &>>$LOG_FILE
 if [ $? -ne 0 ]; then
   ECHO "Reset MySQL Password"
   mysql --connect-expired-password -u root -p${DEFAULT_PASSWORD} </tmp/root-pass.sql &>>${LOG_FILE}

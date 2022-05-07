@@ -42,11 +42,11 @@ NODEJS() {
   fi
 
   ECHO "Download Application Content"
-  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/user/archive/main.zip" &>>${LOG_FILE}
+  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
   statusCheck $?
 
   ECHO "Extract Application Archive"
-  cd /home/roboshop && rm -rf ${COMPONENT} &>>${LOG_FILE} && unzip -o /tmp/${COMPONENT}.zip &>>${LOG_FILE} && mv ${COMPONENT}-main ${COMPONENT}
+  cd /home/roboshop && rm -rf ${COMPONENT} &>>${LOG_FILE} && unzip /tmp/${COMPONENT}.zip &>>${LOG_FILE} && mv ${COMPONENT}-main ${COMPONENT}
   statusCheck $?
 
   ECHO "Install NodeJS modules"

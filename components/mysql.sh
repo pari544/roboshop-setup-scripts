@@ -15,7 +15,7 @@ ECHO "Start MySQL Service"
 systemctl enable mysqld &>>${LOG_FILE} && systemctl start mysqld &>>${LOG_FILE}
 statusCheck $?
 
-DEFAULT_PASSWORD=$(grep 'A Temporary Password' /var/log/mysqld.log | awk '${print $NF}')
+DEFAULT_PASSWORD=$(grep 'A Temporary Password' /var/log/mysqld.log | awk '{print $NF}')
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" >/tmp/root-pass.sql
 
 ECHO "Reset MySQL Password"

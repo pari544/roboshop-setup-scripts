@@ -4,6 +4,4 @@ source components/common.sh
 checkRootUser
 
 COMPONENT=shipping
-NODEJS
-
 JAVA

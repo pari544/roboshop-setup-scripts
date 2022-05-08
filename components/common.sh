@@ -35,7 +35,7 @@ APPLICATION_SETUP() {
   fi
 
   ECHO "Download Application Content"
-  if [ ${COMPONENT} -e dispatch ]; then
+  if [ ${COMPONENT} == "dispatch" ]; then
     curl -L -s -o /tmp/dispatch.zip https://github.com/roboshop-devops-project/dispatch/archive/refs/heads/main.zip &>>${LOG_FILE}
   else
     curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
@@ -44,7 +44,7 @@ APPLICATION_SETUP() {
 
   ECHO "Extract Application Archive"
   cd /home/roboshop && rm -rf ${COMPONENT} &>>${LOG_FILE} && unzip /tmp/${COMPONENT}.zip &>>${LOG_FILE}  && mv ${COMPONENT}-main ${COMPONENT}
-  if [ ${COMPONENT} -e dispatch ]; then
+  if [ ${COMPONENT} == "dispatch" ]; then
     cd dispatch && go mod init dispatch && go get  && go build &>>${LOG_FILE}
   fi
   statusCheck $?

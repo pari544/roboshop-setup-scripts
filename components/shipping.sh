@@ -5,3 +5,5 @@ checkRootUser
 
 COMPONENT=shipping
 NODEJS
+
+JAVA

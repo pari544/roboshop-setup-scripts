@@ -87,4 +87,4 @@ JAVA() {
   statusCheck $?
 
   SYSTEMD_SETUP
-}}
+}

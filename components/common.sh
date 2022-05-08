@@ -100,6 +100,9 @@ PYTHON() {
   cd /home/roboshop/${COMPONENT} && pip3 install -r requirements.txt &>>${LOG_FILE}
   statusCheck $?
 
+  USER_ID=$(id -u roboshop)
+  GROUP_ID=$(id -g roboshop)
+
   SYSTEMD_SETUP
 
 }

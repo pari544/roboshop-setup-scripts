@@ -31,8 +31,10 @@ ECHO "Downloading the Nginx"
  statusCheck $?
 
  ECHO "Update the Nginx Configuration"
- sed -i -e '/catalogue/ s/localhost/catalogue.roboshop.internal/' -e '/user/ s/localhost/user.roboshop.internal/' -e '/cart/ s/localhost/cart.roboshop.internal/' -e '/shipping/ s/localhost/shipping.roboshop.internal/' -e '/payment/ s/localhost/payment.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
- statusCheck $?
+ for component in catalogue user cart shipping payment ; do
+    ECHO "Update configuration for ${component}"
+    sed -i -e '/${component}/ s/localhost/${component}.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
+    statusCheck $?
 
  ECHO "Start Nginx Service"
  systemctl enable nginx &>>${LOG_FILE}

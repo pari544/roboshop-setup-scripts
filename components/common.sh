@@ -35,11 +35,18 @@ APPLICATION_SETUP() {
   fi
 
   ECHO "Download Application Content"
-  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
+  if [ ${COMPONENT} -e dispatch ]; then
+    curl -L -s -o /tmp/dispatch.zip https://github.com/roboshop-devops-project/dispatch/archive/refs/heads/main.zip &>>${LOG_FILE}
+  else
+    curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
+  fi
   statusCheck $?
 
   ECHO "Extract Application Archive"
   cd /home/roboshop && rm -rf ${COMPONENT} &>>${LOG_FILE} && unzip /tmp/${COMPONENT}.zip &>>${LOG_FILE}  && mv ${COMPONENT}-main ${COMPONENT}
+  if [ ${COMPONENT} -e dispatch ]; then
+    cd dispatch && go mod init dispatch && go get  && go build &>>${LOG_FILE}
+  fi
   statusCheck $?
 }
 
@@ -107,6 +114,16 @@ PYTHON() {
   sed -i -e "/^uid/ c uid = ${USER_ID}" -e "/^gid/ c gid = ${GROUP_ID}" /home/roboshop/${COMPONENT}/${COMPONENT}.ini &>>${LOG_FILE}
   statusCheck $?
 
+  SYSTEMD_SETUP
+
+}
+
+GOLANG() {
+  ECHO "Install GoLang"
+  yum install golang -y &>>${LOG_FILE}
+  statusCheck $?
+
+  APPLICATION_SETUP
   SYSTEMD_SETUP
 
 }

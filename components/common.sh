@@ -45,7 +45,7 @@ APPLICATION_SETUP() {
   ECHO "Extract Application Archive"
   cd /home/roboshop && rm -rf ${COMPONENT} &>>${LOG_FILE} && unzip /tmp/${COMPONENT}.zip &>>${LOG_FILE}  && mv ${COMPONENT}-main ${COMPONENT}
   if [ ${COMPONENT} == "dispatch" ]; then
-    cd dispatch && go mod init dispatch && go get  && go build &>>${LOG_FILE}
+    cd dispatch && go mod init dispatch &>>$LOG_FILE} && go get &>>${LOG_FILE}  && go build &>>${LOG_FILE}
   fi
   statusCheck $?
 }

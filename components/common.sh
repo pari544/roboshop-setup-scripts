@@ -98,7 +98,7 @@ PYTHON() {
   APPLICATION_SETUP
 
   ECHO "Install the dependencies"
-  cd /home/roboshop/${COMPONENT} && pip3 install -r requirements.txt &>>${LOG_FILE} && mv  &>>${LOG_FILE}
+  cd /home/roboshop/${COMPONENT} && pip3 install -r requirements.txt &>>${LOG_FILE}
   statusCheck $?
 
   SYSTEMD_SETUP

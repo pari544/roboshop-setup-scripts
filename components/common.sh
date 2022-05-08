@@ -103,6 +103,10 @@ PYTHON() {
   USER_ID=$(id -u roboshop)
   GROUP_ID=$(id -g roboshop)
 
+  ECHO "Update RoboShop Configuration"
+  sed -i -e "/^uid/ c uic = ${USER_ID}" -e "/^gid/ c gid = ${GROUP_ID}" /home/roboshop/${COMPONENT}/${COMPONENT}.ini &>>${LOG_FILE}
+  statusCheck $?
+
   SYSTEMD_SETUP
 
 }

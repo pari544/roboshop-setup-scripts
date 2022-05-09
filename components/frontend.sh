@@ -31,7 +31,8 @@ ECHO "Downloading the Nginx"
  statusCheck $?
 
  ECHO "Update the Nginx Configuration"
- for component in catalogue user cart shipping payment dispatch do
+ for component in catalogue user cart shipping payment dispatch
+ do
     ECHO "Update configuration for ${component}"
     sed -i -e '/${component}/ s/localhost/${component}.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
     statusCheck $?
